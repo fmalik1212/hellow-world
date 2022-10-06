@@ -4,3 +4,5 @@ shopping list:
 milk
 eggs
 bread
+veggies
+drinks
