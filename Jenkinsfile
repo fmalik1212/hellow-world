@@ -1,9 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('testing') {
+    stage('version control') {
       steps {
-        echo 'good'
+        sh '''git --veriosn
+java -version'''
       }
     }
 
