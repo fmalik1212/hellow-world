@@ -1,9 +1,34 @@
 pipeline {
   agent any
   stages {
-    stage('checkout code') {
+    stage('Log Tool Version') {
+      parallel {
+        stage('Log Tool Version') {
+          steps {
+            sh '''mvn --version
+git --version
+java -version'''
+          }
+        }
+
+        stage('Check for POM') {
+          steps {
+            fileExists 'pom.xml'
+          }
+        }
+
+      }
+    }
+
+    stage('Build with Maven') {
       steps {
-        git(url: 'https://github.com/fmalik1212/hellow-world/commit/01b95ffba5225c1ee08b92f83fd374d93eef7713', branch: 'dev')
+        sh 'mvn compile test package'
+      }
+    }
+
+    stage('Post Build Steps') {
+      steps {
+        writeFile(file: 'status.txt', text: 'Hey it worked!!!')
       }
     }
 
